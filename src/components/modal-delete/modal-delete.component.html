@@ -1,0 +1,14 @@
+<ng-container>
+  <div class="modal-delete">
+    <p class="delete-text">
+      Are you sure you want to delete user
+      <span class="delete-name">{{ userName }}?</span>
+    </p>
+    <div class="actions">
+      <button type="button" class="cancel" (click)="onCancel()">Cancel</button>
+      <button type="button" class="accept" (click)="onDelete(userName)">
+        Delete
+      </button>
+    </div>
+  </div>
+</ng-container>

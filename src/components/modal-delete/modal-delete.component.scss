@@ -1,0 +1,29 @@
+.modal-delete {
+    padding: 12px;
+    background: var(--bg-primary);
+    border-radius: 12px;
+}
+.delete-text {
+    font-weight: 700;
+}
+.delete-name {
+    font-weight: normal;
+}
+.cancel {
+    background: var(--bg-primary);
+    border: 2px solid var(--bg-button-accept);
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+.accept {
+    background: var(--bg-button-accept);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: var(--text-secondary);
+}
+.actions {
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+}

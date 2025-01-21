@@ -1,1 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+:root{
+    --width-table:1300px;
+    --border-color:#f0f0f0;
+    --border-tag:#ee942d;
+    --text-color:#242424;
+    --bg-table-head:#c0a8e7;
+    --bg-button-accept:#3988f0;
+    --bg-backdrop:#24242430;
+    --bg-primary:#FFFFFF;
+    --text-primary:#242424;
+    --text-secondary:#FFFFFF;
+
+}
+*{
+    font-family: "Inter", serif;
+    font-style: normal;
+    padding: 0;
+    margin: 0;
+}
+button{
+    cursor:pointer
+}

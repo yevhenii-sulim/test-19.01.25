@@ -1,0 +1,23 @@
+<div class="backdrop">
+  <div class="wrapper">
+    @if (isOpenDeleteModal){
+    <app-modal-delete
+      [userName]="userName"
+      (onCloseModal)="onCloseMenu($event)"
+      (onDeleteUser)="onDelete(userName)"
+    />
+    } @if(isOpenEditModal){
+    <app-modal-edit
+      [userName]="userName"
+      [userList]="userList"
+      (onCloseModal)="onCloseMenu($event)"
+    />
+    } @if(isOpenCreateModal){
+    <app-modal-create
+      [userName]="userName"
+      (onCloseModal)="onCloseMenu($event)"
+      (createUser)="createUser($event)"
+    />
+    }
+  </div>
+</div>

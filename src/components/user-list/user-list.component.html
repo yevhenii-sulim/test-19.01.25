@@ -1,0 +1,85 @@
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="table">
+    <ng-container matColumnDef="First Name">
+      <th mat-header-cell class="symbol-header" *matHeaderCellDef>
+        First Name
+      </th>
+      <td mat-cell class="symbol-cell" *matCellDef="let element">
+        {{ element.firstName }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Last Name">
+      <th mat-header-cell class="symbol-header" *matHeaderCellDef>Last Name</th>
+      <td mat-cell class="symbol-cell" *matCellDef="let element">
+        {{ element.lastName }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Create at">
+      <th mat-header-cell class="symbol-header" *matHeaderCellDef>Create at</th>
+      <td mat-cell class="symbol-cell" *matCellDef="let element">
+        {{ element.createdAt | customDateFormat }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Tags">
+      <th mat-header-cell class="symbol-header" *matHeaderCellDef>Tags</th>
+      <td mat-cell class="symbol-cell" *matCellDef="let element">
+        @for(tag of element.tags; track tag){
+        <p class="tag">{{ tag }}</p>
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Email">
+      <th mat-header-cell class="symbol-header" *matHeaderCellDef>Email</th>
+      <td mat-cell class="symbol-cell" *matCellDef="let element">
+        {{ element.email }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Description">
+      <th mat-header-cell class="symbol-header" *matHeaderCellDef>
+        <div class="box">
+          <div class="description">Description</div>
+          <div class="actions"></div>
+        </div>
+      </th>
+      <td mat-cell class="symbol-cell" *matCellDef="let element">
+        <div class="box">
+          <div class="description">
+            {{ element.description }}
+          </div>
+          <div class="actions">
+            <button
+              type="button"
+              (click)="onOpenMenu({ option: 'edit', name: element.firstName })"
+              class="button-options"
+            >
+              <span class="material-symbols-outlined"> edit </span>
+            </button>
+            <button
+              type="button"
+              (click)="
+                onOpenMenu({ option: 'delete', name: element.firstName })
+              "
+              class="button-options"
+            >
+              <span class="material-symbols-outlined"> delete </span>
+            </button>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="head"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    aria-label="Select page of periodic elements"
+  >
+  </mat-paginator>
+</div>
