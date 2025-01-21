@@ -6,3 +6,7 @@ export interface UserType {
   email: string;
   description: string;
 }
+export interface ChangedUser {
+  changedUser: UserType;
+  index: number;
+}

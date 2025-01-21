@@ -47,7 +47,4 @@ export class UserListComponent implements AfterViewInit, OnChanges {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-  ngOnInit(): void {
-    console.log('list');
-  }
 }

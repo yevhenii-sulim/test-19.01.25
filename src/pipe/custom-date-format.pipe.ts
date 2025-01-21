@@ -5,14 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class CustomDateFormatPipe implements PipeTransform {
-  transform(value: string | Date): string | null {
-    if (!value) return null;
-
+  transform(value: string | Date): string {
     const date = new Date(value);
-
-    if (isNaN(date.getTime())) {
-      return null;
-    }
 
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');

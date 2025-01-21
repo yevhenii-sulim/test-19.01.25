@@ -52,7 +52,11 @@
     </mat-form-field>
     <mat-form-field appearance="outline" class="input">
       <mat-label>Tags</mat-label>
-      <mat-select [formControl]="tags" multiple>
+      <mat-select
+        [formControl]="tags"
+        multiple
+        (selectionChange)="onSelectionChange()"
+      >
         <mat-select-trigger class="select">
           <div class="selected-options">
             @for (tag of tags.value; track tag){

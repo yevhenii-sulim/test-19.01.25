@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../users.service';
-import { UserType } from '../types/userType';
+import { ChangedUser, UserType } from '../types/userType';
 import { UserListComponent } from '../components/user-list/user-list.component';
 import { ModalComponent } from 'src/components/modal/modal.component';
 import { CreateUserComponent } from 'src/components/create-user/create-user.component';
@@ -27,6 +27,13 @@ export class AppComponent implements OnInit {
       this.userList = res;
     });
   }
+
+  onUpdataUser({ changedUser, index }: ChangedUser) {
+    this.userList.splice(index, 1, changedUser);
+    this.userList = [...this.userList];
+    this.onCloseModal(false);
+  }
+
   onCloseModal(event: boolean) {
     this.isOpen = event;
     this.isOpenDeleteModal = event;

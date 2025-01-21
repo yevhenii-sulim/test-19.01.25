@@ -8,7 +8,7 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { UserType } from 'src/types/userType';
+import { ChangedUser, UserType } from 'src/types/userType';
 
 @Component({
   selector: 'app-modal-edit',
@@ -23,17 +23,11 @@ import { UserType } from 'src/types/userType';
   styleUrl: './modal-edit.component.scss',
 })
 export class ModalEditComponent implements OnInit {
-  selectedOptions: string[] = [];
   @Input() userName: string = '';
   @Input() userList: UserType[] = [];
-  user: UserType | undefined = {
-    firstName: '',
-    lastName: '',
-    createdAt: '',
-    tags: [],
-    email: '',
-    description: '',
-  };
+  userIndex: number = 0;
+  updataUser = output<ChangedUser>();
+  selectedOptions: string[] = [];
   onCloseModal = output<boolean>();
   tags = new FormControl<string[]>([], { nonNullable: true });
   tagsList: string[] = [
@@ -50,8 +44,9 @@ export class ModalEditComponent implements OnInit {
     this.onCloseModal.emit(false);
   }
   onSelectionChange() {
-    if (this.selectedOptions.length > 3) {
-      this.selectedOptions = this.selectedOptions.slice(0, 3);
+    const selected = this.tags.value;
+    if (selected.length > 3) {
+      this.tags.setValue(selected.slice(0, 3));
     }
   }
 
@@ -75,26 +70,52 @@ export class ModalEditComponent implements OnInit {
   });
 
   upDate() {
-    console.warn(this.profileForm.value);
+    const updatedUser: UserType = {
+      firstName: this.profileForm.value.firstName ?? '',
+      lastName: this.profileForm.value.lastName ?? '',
+      email: this.profileForm.value.email ?? '',
+      description: this.profileForm.value.description ?? '',
+      tags: this.tags.value || [],
+      createdAt: this.profileForm.value.createdAt || new Date(),
+    };
+
+    const payload: ChangedUser = {
+      changedUser: updatedUser,
+      index: this.userIndex,
+    };
+    this.updataUser.emit(payload);
   }
 
   ngOnInit() {
     const user = this.userList.find((item) => item.firstName === this.userName);
-    this.user = user;
-    this.profileForm.patchValue({
-      firstName: this.user?.firstName ?? '',
-      lastName: this.user?.lastName ?? '',
-      email: this.user?.email ?? '',
-      tags: this.user?.tags ?? [],
-      description: this.user?.description ?? '',
-      createdAt: new Date(),
-    });
-    console.log(this.profileForm.value);
+    this.userIndex = this.userList.findIndex(
+      (item) => item.firstName === this.userName
+    );
+    if (user) {
+      const tags = user.tags;
+      this.profileForm.patchValue({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        tags: tags,
+        description: user.description,
+        createdAt: new Date(),
+      });
+    }
+    const currentTags = this.profileForm.get('tags')?.value;
+    if (currentTags) {
+      this.tags.setValue(currentTags);
+    }
   }
 
   removeTagTopping(tag: string, event: MouseEvent): void {
     event.stopPropagation();
+    event.preventDefault();
     const currentSelections = this.tags.value;
-    this.tags.setValue(currentSelections.filter((item) => item !== tag));
+    this.tags.setValue(
+      currentSelections.filter((item) => {
+        return item !== tag;
+      })
+    );
   }
 }

@@ -3,20 +3,21 @@
     @if (isOpenDeleteModal){
     <app-modal-delete
       [userName]="userName"
-      (onCloseModal)="onCloseMenu($event)"
       (onDeleteUser)="onDelete(userName)"
+      (onCloseModal)="onCloseMenu($event)"
     />
     } @if(isOpenEditModal){
     <app-modal-edit
       [userName]="userName"
       [userList]="userList"
+      (updataUser)="updataUser($event)"
       (onCloseModal)="onCloseMenu($event)"
     />
     } @if(isOpenCreateModal){
     <app-modal-create
       [userName]="userName"
-      (onCloseModal)="onCloseMenu($event)"
       (createUser)="createUser($event)"
+      (onCloseModal)="onCloseMenu($event)"
     />
     }
   </div>

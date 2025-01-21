@@ -62,8 +62,9 @@ export class ModalCreateComponent {
   }
 
   onSelectionChange() {
-    if (this.selectedOptions.length > 3) {
-      this.selectedOptions = this.selectedOptions.slice(0, 3);
+    const selected = this.tags.value || [];
+    if (selected.length > 3) {
+      this.tags.setValue(selected.slice(0, 3));
     }
   }
   onSubmit() {
@@ -73,6 +74,7 @@ export class ModalCreateComponent {
 
   removeTagTopping(tag: string, event: MouseEvent): void {
     event.stopPropagation();
+    event.preventDefault();
     const currentSelections = this.tags.value;
     this.tags.setValue(currentSelections.filter((item) => item !== tag));
   }

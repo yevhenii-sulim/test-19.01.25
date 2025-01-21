@@ -2,7 +2,7 @@ import { Component, Input, output } from '@angular/core';
 import { ModalEditComponent } from '../modal-edit/modal-edit.component';
 import { ModalCreateComponent } from '../modal-create/modal-create.component';
 import { ModalDeleteComponent } from '../modal-delete/modal-delete.component';
-import { UserType } from 'src/types/userType';
+import { ChangedUser, UserType } from 'src/types/userType';
 
 @Component({
   selector: 'app-modal',
@@ -20,9 +20,13 @@ export class ModalComponent {
   onCloseModal = output<boolean>();
   onCreateUser = output<UserType>();
   onDeleteUser = output<string>();
+  onUpdataUser = output<ChangedUser>();
 
-  createUser(event: any) {
+  createUser(event: UserType) {
     this.onCreateUser.emit(event);
+  }
+  updataUser(event: ChangedUser) {
+    this.onUpdataUser.emit(event);
   }
 
   onDelete(name: string) {
