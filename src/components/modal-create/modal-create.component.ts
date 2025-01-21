@@ -68,7 +68,8 @@ export class ModalCreateComponent {
     }
   }
   onSubmit() {
-    const profileData = this.profileForm.value;
+    const profileData = { ...this.profileForm.value, tags: this.tags.value };
+    console.log(this.tags);
     this.createUser.emit(profileData as UserType);
   }
 
